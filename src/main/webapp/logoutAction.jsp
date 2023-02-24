@@ -7,6 +7,9 @@
 <title>bulletin board system JSP</title>
 </head>
 <body>
+	<%
+		session.invalidate();
+	%>
 	<script>
 		location.href = 'main.jsp';
 	</script>

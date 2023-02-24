@@ -17,6 +17,17 @@
 </head>
 <body>
 	<%
+		String userID = null;
+		if(session.getAttribute("userID") != null){//로그인이 되어있다면 세션에 로그인정보 입력
+			userID = (String)session.getAttribute("userID");
+		}
+		if(userID != null){//로그인이 되어있는 회원가입 페이지에 접속할 수 없도록 막음
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('이미 로그인이 되어있습니다.')");
+			script.println("location.href = 'main.jsp'");
+			script.println("</script>");
+		}
 		if(user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null || user.getUserGender() == null || user.getUserEmail() == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
@@ -32,7 +43,8 @@
 				script.println("alert('이미 존재하는 아이디 입니다.')");
 				script.println("history.back()");
 				script.println("</script>");
-			}else{
+			}else{//회원가입 성공
+				session.setAttribute("userID", user.getUserID());
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("location.href = 'main.jsp'");
