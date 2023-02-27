@@ -12,24 +12,28 @@ public class UserDAO {
 	private ResultSet rs;
 	
 	public UserDAO() {
-		try{
-			Class.forName("org.sqlite.JDBC");
-			String dbFile ="D:\\jsp\\projects\\BBS\\BBS.db";
-			//String dbFile ="..\\../../../../BBS.db"; 상대경로를 해보고 싶었던 것
-			conn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
+		try {
+			String dbURL = "jdbc:mariadb://rladmstjs120.cafe24.com:3306/rladmstjs120";
+			String dbID = "rladmstjs120";
+			String dbPassword = "";
+			Class.forName("org.mariadb.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public int login(String userID, String userPassword) {
-		String SQL = "SELECT userPassword FROM USER WHERE userID = ? ";
+		String SQL = "SELECT userPassword FROM BBSPRAUSER WHERE userID = ? ";
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userID);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				if(rs.getString(1).equals(userPassword)) {
+					pstmt.close();
 					return 1;//로그인성공
 				}else {
 					return 0;//비밀번호불일치
@@ -43,9 +47,8 @@ public class UserDAO {
 	}
 	
 	public int join(User user) {
-		String SQL = "INSERT INTO USER (userID, userPassword, userName, userGender, userEmail) VALUES(?, ?, ?, ?, ?);";
+		String SQL = "INSERT INTO BBSPRAUSER VALUES(?, ?, ?, ?, ?);";
 		try {
-			System.out.println(SQL);
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, user.getUserID());
 			pstmt.setString(2, user.getUserPassword());
