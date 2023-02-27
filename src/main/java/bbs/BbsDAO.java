@@ -103,7 +103,7 @@ public class BbsDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM BBSPRABBS WHERE bbsID < ? AND bbsAvaillble = 1 ORDER BY bbsID DESC LIMIT 10";
+		String SQL = "SELECT * FROM BBSPRABBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);

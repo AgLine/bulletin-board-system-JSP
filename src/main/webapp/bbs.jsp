@@ -11,6 +11,12 @@
 <meta name="viewport" content="width=device-width", initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>bulletin board system JSP</title>
+<style type="text/css">
+	a, a:hover{
+		color: #000000;
+		text-decoration: none;
+	}
+</style>
 </head>
 <body>
 	<%
@@ -98,7 +104,18 @@
 					%>
 				</tbody>
 			</table>
-			
+			<%
+				if(pageNumber != 1){
+			%>
+				<a href="bbs.jsp?pageNumber=<%=pageNumber -1%>" class="btn btn-success btn-arraw-left">이전</a>
+			<%
+				}
+				if(bbsDAO.nextPage(pageNumber +1)){
+			%>
+				<a href="bbs.jsp?pageNumber=<%= pageNumber +1%>" class="btn btn-success btn-arraw-left">다음</a>
+			<%
+				}
+			%>
 			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 		</div>
 	</div>
