@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class BbsDAO {
 
@@ -26,8 +27,7 @@ public class BbsDAO {
 	public String getDate() {// 데이터베이스에서 현재시간 가져오기
 		String SQL = "SELECT NOW()";
 		try {
-			PreparedStatement pstmt;
-			pstmt = conn.prepareStatement(SQL);
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -43,8 +43,7 @@ public class BbsDAO {
 	public int getNext() {//게시물 순서
 		String SQL = "SELECT bbsID FROM BBSPRABBS ORDER BY bbsID DESC;";
 		try {
-			PreparedStatement pstmt;
-			pstmt = conn.prepareStatement(SQL);
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -61,16 +60,12 @@ public class BbsDAO {
 	public int write(String bbsTitle, String userID, String bbsContent) {
 		String SQL = "INSERT INTO BBSPRABBS VALUES(?, ?, ?, ?, ?, ?);";
 		try {
-			PreparedStatement pstmt;
-			int next = getNext();
-			String date = getDate();
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			
-			pstmt = conn.prepareStatement(SQL);
-			
-			pstmt.setInt(1, next);
+			pstmt.setInt(1, getNext());
 			pstmt.setString(2, bbsTitle);
 			pstmt.setString(3, userID);
-			pstmt.setString(4, date);
+			pstmt.setString(4, getDate());
 			pstmt.setString(5, bbsContent);
 			pstmt.setInt(6, 1);
 			
@@ -81,5 +76,46 @@ public class BbsDAO {
 		}
 		
 		return -1;//데이터베이스오류
+	}
+	
+	public ArrayList<Bbs> getList(int pageNumber) {
+		String SQL = "SELECT * FROM BBSPRABBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+		ArrayList<Bbs> list = new ArrayList<Bbs>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1 , getNext() - (pageNumber -1) * 10);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Bbs bbs = new Bbs();
+				bbs.setBbsID(rs.getInt(1));
+				bbs.setBbsTitle(rs.getString(2));
+				bbs.setUserID(rs.getString(3));
+				bbs.setBbsDate(rs.getString(4));
+				bbs.setBbsContent(rs.getString(5));
+				bbs.setBbsAvailble(rs.getString(6));
+				list.add(bbs);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+	
+	public boolean nextPage(int pageNumber) {
+		String SQL = "SELECT * FROM BBSPRABBS WHERE bbsID < ? AND bbsAvaillble = 1 ORDER BY bbsID DESC LIMIT 10";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1 , getNext() - (pageNumber -1) * 10);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return true;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
 	}
 }
