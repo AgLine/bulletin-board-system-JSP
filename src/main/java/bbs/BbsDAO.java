@@ -118,4 +118,28 @@ public class BbsDAO {
 		}
 		return false;
 	}
+	
+	public Bbs getBbs(int bbsID) {
+		String SQL = "SELECT * FROM BBSPRABBS WHERE bbsID = ?";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1 , bbsID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				Bbs bbs = new Bbs();
+				bbs.setBbsID(rs.getInt(1));
+				bbs.setBbsTitle(rs.getString(2));
+				bbs.setUserID(rs.getString(3));
+				bbs.setBbsDate(rs.getString(4));
+				bbs.setBbsContent(rs.getString(5));
+				bbs.setBbsAvailble(rs.getString(6));
+				return bbs;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 }
