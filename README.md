@@ -1,5 +1,7 @@
 # bulletin-board-system-JSP
-jsp로 게시판 만들기
+jsp로 게시판 만들기  
+http://rladmstjs120.cafe24.com/main.jsp
+
 
 이클립스에서 export 에서 이름을 ROOT.war로 생성  
 호스팅서버의 tomcat/webapps안에 넣기  
