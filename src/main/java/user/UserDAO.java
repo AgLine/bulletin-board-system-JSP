@@ -15,7 +15,7 @@ public class UserDAO {
 		try {
 			String dbURL = "jdbc:mariadb://rladmstjs120.cafe24.com:3306/rladmstjs120";
 			String dbID = "rladmstjs120";
-			String dbPassword = "";
+			String dbPassword = "!";
 			Class.forName("org.mariadb.jdbc.Driver");
 			
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
