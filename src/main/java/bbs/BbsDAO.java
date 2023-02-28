@@ -161,4 +161,18 @@ public class BbsDAO {
 		return -1;//데이터베이스오류
 	}
 	
+	public int delete(int bbsID) {// 글을 삭제해도 데이터베이스안에서는 남아있어야 하기 떄문에 bbsAvailable만 0으로 바꾸어준다
+		String SQL = "UPDATE BBSPRABBS SET bbsAvailable = 0 WHERE bbsID = ? ";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, bbsID);
+			
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;//데이터베이스오류
+	}
 }
