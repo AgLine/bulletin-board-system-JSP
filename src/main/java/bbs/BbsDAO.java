@@ -97,8 +97,9 @@ public class BbsDAO {
 				list.add(bbs);
 			}
 		}catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
+
 		return list;
 	}
 	
@@ -114,7 +115,7 @@ public class BbsDAO {
 				return true;
 			}
 		}catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -138,8 +139,25 @@ public class BbsDAO {
 				return bbs;
 			}
 		}catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public int update(int bbsID, String bbsTitle, String bbsContent) {
+		String SQL = "UPDATE BBSPRABBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ? ";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, bbsTitle);
+			pstmt.setString(2, bbsContent);
+			pstmt.setInt(3, bbsID);
+			
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;//데이터베이스오류
 	}
 }
