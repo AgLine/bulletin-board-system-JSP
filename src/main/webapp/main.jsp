@@ -82,13 +82,13 @@
 			</ol>
 			<div class="carousel-inner">
 				<div class="item active">
-					<img alt="따봉로아콘" src="images/1.png">
+					<img class="img-responsive center-block" alt="따봉로아콘" src="images/1.png">
 				</div>
 				<div class="item">
-					<img alt="어때로아콘" src="images/2.png">
+					<img class="img-responsive center-block" alt="어때로아콘" src="images/2.png">
 				</div>
 				<div class="item">
-					<img alt="발그레로아콘" src="images/3.png">
+					<img class="img-responsive center-block" alt="발그레로아콘" src="images/3.png">
 				</div>
 			</div>
 			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
