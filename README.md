@@ -34,6 +34,11 @@ SpringBoot, JSP, Bootstrap을 활용하여 게시판사이트를 개발하였습
 
 ---
 ## 📷 실행 화면
+<img width="994" height="773" alt="portfolio-5" src="https://github.com/user-attachments/assets/49061d30-0f07-4a4c-94ce-116558d80567" />
+<img width="995" height="341" alt="portfolio-details-5-1" src="https://github.com/user-attachments/assets/c812da84-36e3-4b33-bf54-070dbfdab238" />
+<img width="1001" height="485" alt="portfolio-details-5-2" src="https://github.com/user-attachments/assets/5bbbde3a-f1f4-4d99-a475-a21a17b08513" />
+<img width="994" height="548" alt="portfolio-details-5-3" src="https://github.com/user-attachments/assets/126c7ca8-e5d0-478e-b884-4f3ab2bff2f3" />
+<img width="992" height="321" alt="portfolio-details-5-4" src="https://github.com/user-attachments/assets/83f4d1f2-54c6-4a4b-892d-d9bd44104536" />
 
 # 참고문헌
 * https://github.com/xerial/sqlite-jdbc
